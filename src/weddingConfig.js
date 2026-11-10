@@ -1,7 +1,7 @@
 // Every piece of text, date, link and asset on the invitation comes from this file.
 
 const weddingConfig = {
-  siteTitle: 'Shubham & Sunaina | Wedding Invitation',
+  siteTitle: 'Shubham & Sunaina | Engagement Ceremony',
 
   gate: {
     mantra: '॥ ॐ श्री गणेशाय नमः ॥',
@@ -12,9 +12,9 @@ const weddingConfig = {
   },
 
   event: {
-    name: 'Wedding Invitation',
-    rite: 'Wedding Ceremony',
-    riteGloss: 'Two souls, one sacred bond',
+    name: 'Engagement Ceremony',
+    rite: 'Engagement Ceremony',
+    riteGloss: 'A promise sealed with rings',
     // ISO 8601 with the IST offset; the countdown and calendar links derive from this.
     start: '2026-11-13T18:30:00+05:30',
     durationHours: 5,

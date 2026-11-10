@@ -1,6 +1,6 @@
-# Shubham & Sunaina – Wedding Invitation
+# Shubham & Sunaina – Engagement Ceremony
 
-A mobile-first digital wedding invitation built with React, Vite and Motion.
+A mobile-first digital engagement invitation built with React, Vite and Motion.
 
 ## Editing the details
 

@@ -33,7 +33,7 @@ export function icsDataUrl() {
     'CALSCALE:GREGORIAN',
     'METHOD:PUBLISH',
     'BEGIN:VEVENT',
-    `UID:wedding-${groom.firstName}-${bride.firstName}-${toUtcStamp(eventStart)}`.toLowerCase(),
+    `UID:engagement-${groom.firstName}-${bride.firstName}-${toUtcStamp(eventStart)}`.toLowerCase(),
     `DTSTAMP:${toUtcStamp(new Date())}`,
     `DTSTART:${toUtcStamp(eventStart)}`,
     `DTEND:${toUtcStamp(eventEnd)}`,
@@ -51,7 +51,7 @@ export function icsDataUrl() {
   return 'data:text/calendar;charset=utf-8,' + encodeURIComponent(ics)
 }
 
-export const icsFileName = `${groom.firstName}-${bride.firstName}-Wedding.ics`
+export const icsFileName = `${groom.firstName}-${bride.firstName}-Engagement.ics`
 
 export const mapsUrl = 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(venue.mapsQuery)
 export const directionsUrl = 'https://www.google.com/maps/dir/?api=1&destination=' + encodeURIComponent(venue.mapsQuery)
