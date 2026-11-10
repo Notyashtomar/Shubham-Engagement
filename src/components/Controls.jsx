@@ -1,0 +1,53 @@
+import { useEffect, useState } from 'react'
+import { motion } from 'motion/react'
+
+export function SoundToggle({ playing, onToggle }) {
+  return (
+    <motion.button
+      type="button"
+      className="sound"
+      aria-label={playing ? 'Turn music off' : 'Turn music on'}
+      aria-pressed={playing}
+      onClick={onToggle}
+      initial={{ opacity: 0, scale: 0.8 }}
+      animate={{ opacity: playing ? 1 : 0.6, scale: 1 }}
+      transition={{ duration: 0.6, delay: 0.4 }}
+    >
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M4 9v6h4l5 4V5L8 9H4z" />
+        {playing ? <path d="M16.5 8.5a5 5 0 0 1 0 7M19 6a8.5 8.5 0 0 1 0 12" /> : <path d="M16 9l5 6M21 9l-5 6" />}
+      </svg>
+      {playing && <span className="pulse" aria-hidden="true" />}
+    </motion.button>
+  )
+}
+
+export function ScrollCue({ sectionRefs }) {
+  const [gone, setGone] = useState(false)
+
+  useEffect(() => {
+    const check = () => setGone(window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 60)
+    check()
+    window.addEventListener('scroll', check, { passive: true })
+    window.addEventListener('resize', check)
+    return () => {
+      window.removeEventListener('scroll', check)
+      window.removeEventListener('resize', check)
+    }
+  }, [])
+
+  const next = () => {
+    const y = window.scrollY + 8
+    const target = sectionRefs.current.find((s) => s && s.offsetTop > y)
+    window.scrollTo({ top: target ? target.offsetTop : y + window.innerHeight * 0.8, behavior: 'smooth' })
+  }
+
+  return (
+    <button type="button" className={`cue${gone ? ' gone' : ''}`} aria-label="Scroll down" onClick={next}>
+      <span>Scroll</span>
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M6 7l6 6 6-6M6 12l6 6 6-6" />
+      </svg>
+    </button>
+  )
+}
