@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react'
-import { motion } from 'motion/react'
+import { m } from 'motion/react'
 
 export function SoundToggle({ playing, onToggle }) {
   return (
-    <motion.button
+    <m.button
       type="button"
       className="sound"
       aria-label={playing ? 'Turn music off' : 'Turn music on'}
@@ -18,7 +18,7 @@ export function SoundToggle({ playing, onToggle }) {
         {playing ? <path d="M16.5 8.5a5 5 0 0 1 0 7M19 6a8.5 8.5 0 0 1 0 12" /> : <path d="M16 9l5 6M21 9l-5 6" />}
       </svg>
       {playing && <span className="pulse" aria-hidden="true" />}
-    </motion.button>
+    </m.button>
   )
 }
 
@@ -26,13 +26,21 @@ export function ScrollCue({ sectionRefs }) {
   const [gone, setGone] = useState(false)
 
   useEffect(() => {
-    const check = () => setGone(window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 60)
+    let frame = 0
+    const check = () => {
+      frame = 0
+      setGone(window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 60)
+    }
+    const request = () => {
+      if (!frame) frame = requestAnimationFrame(check)
+    }
     check()
-    window.addEventListener('scroll', check, { passive: true })
-    window.addEventListener('resize', check)
+    window.addEventListener('scroll', request, { passive: true })
+    window.addEventListener('resize', request)
     return () => {
-      window.removeEventListener('scroll', check)
-      window.removeEventListener('resize', check)
+      cancelAnimationFrame(frame)
+      window.removeEventListener('scroll', request)
+      window.removeEventListener('resize', request)
     }
   }, [])
 

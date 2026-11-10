@@ -1,5 +1,5 @@
 import { forwardRef } from 'react'
-import { AnimatePresence, motion } from 'motion/react'
+import { AnimatePresence, m } from 'motion/react'
 import { Panel, Reveal } from './Reveal'
 import { Rule } from './Ornaments'
 import useCountdown from '../hooks/useCountdown'
@@ -14,7 +14,7 @@ function Digit({ value }) {
   return (
     <b>
       <AnimatePresence mode="popLayout" initial={false}>
-        <motion.span
+        <m.span
           key={text}
           initial={{ opacity: 0, y: -6 }}
           animate={{ opacity: 1, y: 0 }}
@@ -22,7 +22,7 @@ function Digit({ value }) {
           transition={{ duration: 0.35, ease: 'easeOut' }}
         >
           {text}
-        </motion.span>
+        </m.span>
       </AnimatePresence>
     </b>
   )

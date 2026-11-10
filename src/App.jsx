@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import { MotionConfig } from 'motion/react'
+import { LazyMotion, MotionConfig, domAnimation } from 'motion/react'
 import Gate from './components/Gate'
 import Stage from './components/Stage'
 import Petals from './components/Petals'
@@ -30,19 +30,21 @@ export default function App() {
   }
 
   return (
-    <MotionConfig reducedMotion="user">
-      <Gate open={open} onOpen={handleOpen} hasMusic={music.available} />
-      {open && music.available && <SoundToggle playing={music.playing} onToggle={music.toggle} />}
-      {open && <ScrollCue sectionRefs={sections} />}
+    <LazyMotion features={domAnimation} strict>
+      <MotionConfig reducedMotion="user">
+        <Gate open={open} onOpen={handleOpen} hasMusic={music.available} />
+        {open && music.available && <SoundToggle playing={music.playing} onToggle={music.toggle} />}
+        {open && <ScrollCue sectionRefs={sections} />}
 
-      <main className="card">
-        <Stage sectionRefs={sections}>{open && config.effects.petals && <Petals />}</Stage>
-        <Hero ref={setSection(0)} active={open} />
-        <Invitation ref={setSection(1)} />
-        <SaveTheDate ref={setSection(2)} />
-        <Venue ref={setSection(3)} />
-        <Closing ref={setSection(4)} />
-      </main>
-    </MotionConfig>
+        <main className="card">
+          <Stage sectionRefs={sections}>{open && config.effects.petals && <Petals />}</Stage>
+          <Hero ref={setSection(0)} active={open} />
+          <Invitation ref={setSection(1)} />
+          <SaveTheDate ref={setSection(2)} />
+          <Venue ref={setSection(3)} />
+          <Closing ref={setSection(4)} />
+        </main>
+      </MotionConfig>
+    </LazyMotion>
   )
 }
